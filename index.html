@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Assessment App</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Using Boxicons for icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+
+    <div class="mobile-wrapper">
+        <main class="app-container">
+            
+            <div class="scroll-content">
+                <!-- Header -->
+                <header class="app-header">
+                    <div class="user-info">
+                        <img src="profileicon.png" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(0,0,0,0.1);">
+                        <div class="greeting">
+                            <h1>John Doe</h1>
+                            <div class="location">
+                                <i class='bx bx-map'></i>
+                                <span>Toronto, ON</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Avatar removed as requested -->
+                    <button class="notification-btn">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                    </button>
+                </header>
+
+                <!-- Home View -->
+                <div id="home-view">
+                    <!-- Hero Section -->
+                    <section class="hero-card" style="position: relative;">
+                        <!-- Top Right Element (Icon or Logo) -->
+                        <div id="hero-top-right" style="position: absolute; top: 24px; right: 24px; display: flex; align-items: center; justify-content: flex-end;">
+                        </div>
+
+                        <div class="hero-top">
+                            <span class="badge" id="hero-badge">NEW HEALTH UPDATE</span>
+                            <h2 id="hero-title">Recent Assessment</h2>
+                        </div>
+                        <div class="hero-bottom">
+                            <div id="hero-desc">Loading assessment details...</div>
+                            <button class="btn-primary" id="btn-view-details">View Details</button>
+                        </div>
+                        <!-- Decorative background elements removed -->
+                    </section>
+
+                    <!-- Quick Action -->
+                    <button class="action-bar" id="btn-immediate-help">
+                        <div class="action-left">
+                            <ion-icon name="medical"></ion-icon>
+                            <span>Get immediate help</span>
+                        </div>
+                        <!-- Long Right Arrow Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right-icon lucide-move-right">
+                            <path d="M18 8L22 12L18 16"/>
+                            <path d="M2 12H22"/>
+                        </svg>
+                    </button>
+
+                    <!-- Recent Visits Section (only 2 items) -->
+                    <section class="timeline">
+                        <div class="section-header">
+                            <h3 class="section-title">Recent Visits</h3>
+                            <a class="see-more-link" id="home-see-more">See more</a>
+                        </div>
+                        <div id="recent-list" class="card-list">
+                            <!-- Populated by JS -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Visits View (Hidden by default) -->
+                <div id="visits-view" style="display: none;">
+                    <div class="search-container">
+                        <div class="search-input-wrapper">
+                            <i class='bx bx-search'></i>
+                            <input type="text" class="search-input" id="visit-search" placeholder="Search visits, hospitals...">
+                        </div>
+                    </div>
+                    <section class="timeline">
+                        <div id="full-visits-list">
+                            <!-- Populated by JS with month groupings -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Spacer for scrolling under nav -->
+                <div style="height: 20px;"></div>
+            </div>
+
+            <!-- Bottom Navigation -->
+            <nav class="bottom-nav">
+                <div class="nav-item active" id="nav-home">
+                    <div class="nav-pill">
+                        <ion-icon name="grid"></ion-icon>
+                        <span>Home</span>
+                    </div>
+                </div>
+                <div class="nav-fab-container">
+                    <button class="nav-fab" id="main-fab">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                    </button>
+                </div>
+                <div class="nav-item" id="nav-visits">
+                    <div class="nav-pill">
+                        <ion-icon name="albums-outline"></ion-icon>
+                        <span>Visits</span>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Fullscreen Overlay Menu (Prescription Card) -->
+            <div id="fab-overlay">
+                <button id="overlay-close">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+                
+                <div class="overlay-content">
+                    
+                    <!-- View 1: Main Card -->
+                    <div id="view-prescription" class="overlay-view active">
+                        <div class="prescription-card">
+                            <div class="rx-header">
+                                <i class='bx bx-plus-medical'></i>
+                                <span>Prescription Ready</span>
+                            </div>
+                            
+                            <div class="rx-hospital">
+                                <h3>Mount Sinai Hospital</h3>
+                                <p>Direct to Pharmacy</p>
+                                <img src="QR Code Url.png" class="rx-qr-code" alt="QR Code">
+                            </div>
+                            
+                            <div class="patient-details">
+                                <div class="patient-row">
+                                    <span class="label">PATIENT</span>
+                                    <span class="value">John Doe</span>
+                                </div>
+                                <div class="patient-row">
+                                    <span class="label">H-CARD NO.</span>
+                                    <span class="value number-font">1234-567-890-XX</span>
+                                </div>
+                                <div class="patient-row">
+                                    <span class="label">DOCTOR</span>
+                                    <span class="value">Dr. Sarah Chen</span>
+                                </div>
+                                <div class="patient-row">
+                                    <span class="label">SERIAL NO.</span>
+                                    <span class="value number-font">MSH-2026-XXXXXXXXXX</span>
+                                </div>
+                            </div>
+
+                            <!-- Barcode Simulation -->
+                            <div class="barcode-container">
+                                <img src="Code-128.png" class="barcode-img">
+                                <span class="barcode-number">RX-9928-MSH-2026</span>
+                                <button class="btn-details" id="btn-show-details">Details</button>
+                            </div>
+
+                            <div class="pharmacy-logos">
+                                <span>Valid at Rexall / Shoppers Drug Mart</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- View 2: Details Page -->
+                    <div id="view-details" class="overlay-view">
+                        <div class="details-container">
+                            <button class="btn-back" id="btn-back-details">
+                                <i class='bx bx-left-arrow-alt'></i> Back
+                            </button>
+                            
+                            <h2>Prescription Details</h2>
+
+                            <div class="detail-section tracker-container">
+                                <div class="progress-track">
+                                    <div class="step completed">
+                                        <div class="step-icon"><i class='bx bx-check'></i></div>
+                                        <div class="step-label">Doctor's Visit</div>
+                                        <div class="step-line"></div>
+                                    </div>
+                                    <div class="step active">
+                                        <div class="step-icon"><i class='bx bx-file'></i></div>
+                                        <div class="step-label">Digital Prescription Issued</div>
+                                        <div class="step-line"></div>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-icon"><i class='bx bx-shopping-bag'></i></div>
+                                        <div class="step-label">Prescription is ready</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <label>DOCTOR'S NOTE</label>
+                                <p id="detail-note">Patient presents with sudden onset of high fever (<span class="number-font">39°C</span>), severe myalgia, and fatigue. Rapid antigen test confirmed Influenza A. Respiratory status stable with clear lungs.</p>
+                            </div>
+
+                            <div class="detail-section">
+                                <label>PRESCRIBED MEDICATION</label>
+                                <div id="detail-meds-list" class="meds-list">
+                                    <!-- Populated by JS, but providing default structure if JS fails -->
+                                    <div class="med-item">
+                                        <h4 class="med-name">Oseltamivir (Tamiflu)</h4>
+                                        <p class="med-dosage number-font">75mg</p>
+                                        <i class='bx bx-capsule med-icon'></i>
+                                    </div>
+                                    <div class="med-item">
+                                        <h4 class="med-name">Acetaminophen</h4>
+                                        <p class="med-dosage number-font">500mg</p>
+                                        <i class='bx bx-capsule med-icon'></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <label>INSTRUCTIONS</label>
+                                <p id="detail-instructions" class="instructions-text">Strict isolation for 5 days. Maintain high fluid intake and rest. Monitor temperature every 6 hours. Seek immediate care if shortness of breath or confusion occurs.</p>
+                            </div>
+
+                            <button class="btn-reconnect">
+                                Reconnect with Doctor
+                            </button>
+                            
+                            <p id="detail-doc-info" class="doctor-hospital-info">
+                                <!-- Populated by JS -->
+                                Dr. Sarah Chen / Mount Sinai Hospital
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Fullscreen Overlay for GET IMMEDIATE HELP -->
+            <div id="help-overlay">
+                <button id="help-close">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+                <div class="overlay-content chat-mode">
+
+                    <!-- View 1: Chat -->
+                    <div id="chat-view-container" style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                        <!-- Header Removed -->
+                        <div class="chat-header" style="display: none;"></div>
+
+                        <div class="chat-messages" id="chat-messages">
+                            <!-- Messages will be injected here -->
+                        </div>
+
+                        <!-- Suggested Replies -->
+                        <div id="chat-suggestions" class="chat-suggestions">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <div class="chat-input-area">
+                            <button id="btn-voice-input" class="btn-voice">
+                                <i class='bx bx-microphone'></i>
+                            </button>
+                            <input type="text" id="chat-input" placeholder="Type or speak..." autocomplete="off">
+                            <button id="btn-send-message" class="btn-send">
+                                <i class='bx bx-send'></i>
+                            </button>
+                        </div>
+
+                        <!-- Independent Next Step Button -->
+                        <div class="chat-footer-action">
+                            <button id="btn-next-step-overlay" class="btn-primary disabled" disabled>
+                                Next Step
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- View 2: ER List -->
+                    <div id="er-view-container" style="display: none; width: 100%; height: 100%; flex-direction: column; justify-content: center; padding: 20px;">
+                        <h2 style="font-family: 'Raleway', sans-serif; font-size: 24px; margin-bottom: 24px; text-align: left; font-weight: 800;">
+                            Select ER <br>
+                            <span style="font-weight: 400; font-size: 16px; opacity: 0.7;">Downtown Toronto</span>
+                        </h2>
+                        
+                        <div class="er-list" id="er-list">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <button id="btn-confirm-er" class="btn-primary" style="margin-top: 24px; width: 100%; border-radius: 50px; background: #1A1A1A; color: #E1FF7F; font-weight: 700; padding: 16px;">
+                            Confirm Selection
+                        </button>
+                    </div>
+
+                    <!-- View 3: Transport Selection -->
+                    <div id="transport-view-container" style="display: none; width: 100%; height: 100%; flex-direction: column; justify-content: center; padding: 20px;">
+                        <h2 style="font-family: 'Raleway', sans-serif; font-size: 24px; margin-bottom: 24px; text-align: left; font-weight: 800;">
+                            Select Transport <br>
+                            <span style="font-weight: 400; font-size: 16px; opacity: 0.7;">To Selected ER</span>
+                        </h2>
+                        
+                        <div class="transport-list" style="display: flex; flex-direction: column; gap: 16px;">
+                            <div class="transport-card" data-type="ambulance">
+                                <div class="transport-icon"><i class='bx bx-plus-medical'></i></div>
+                                <div class="transport-info">
+                                    <div class="transport-name">Ambulance</div>
+                                    <div class="transport-details">Medical Support Included</div>
+                                </div>
+                                <div class="transport-price">
+                                    <span class="price-main">$45</span>
+                                    <span class="price-sub">/ $240 CAD</span>
+                                </div>
+                            </div>
+
+                            <div class="transport-card" data-type="rideshare">
+                                <div class="transport-icon"><i class='bx bx-car'></i></div>
+                                <div class="transport-info">
+                                    <div class="transport-name">Non-Medical Vehicle</div>
+                                    <div class="transport-details">Uber / Lyft</div>
+                                </div>
+                                <div class="transport-price">
+                                    <span class="price-main">$20</span>
+                                    <span class="price-sub">CAD (Est.)</span>
+                                </div>
+                            </div>
+
+                            <div class="transport-card" data-type="walk">
+                                <div class="transport-icon"><i class='bx bx-walk'></i></div>
+                                <div class="transport-info">
+                                    <div class="transport-name">By Walk</div>
+                                    <div class="transport-details">Direct Route</div>
+                                </div>
+                                <div class="transport-price">
+                                    <span class="price-main">Free</span>
+                                    <span class="price-sub">12 min</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button id="btn-confirm-transport" class="btn-primary" style="margin-top: 40px; width: 100%; border-radius: 50px; background: #1A1A1A; color: #E1FF7F; font-weight: 700; padding: 16px; opacity: 0.5; cursor: not-allowed;" disabled>
+                            Request Transport
+                        </button>
+                    </div>
+
+                    <!-- View 4: Request Summary -->
+                    <div id="summary-view-container" style="display: none; width: 100%; height: 100%; flex-direction: column; justify-content: center; padding: 20px; text-align: center;">
+                        <h2 style="font-family: 'Raleway', sans-serif; font-size: 24px; margin-bottom: 32px; font-weight: 800; color: #1A1A1A;">
+                            You are in Queue
+                        </h2>
+
+                        <div style="margin-bottom: 32px;">
+                            <div style="font-family: 'Inter', sans-serif; font-size: 14px; color: #1A1A1A; opacity: 0.7; margin-bottom: 8px;">YOUR TICKET NUMBER</div>
+                            <div style="font-family: 'Inter', sans-serif; font-size: 48px; font-weight: 700; color: #1A1A1A;">A-24</div>
+                        </div>
+
+                        <div class="summary-details" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px;">
+                            <div class="detail-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 12px;">
+                                <span style="font-family: 'Inter', sans-serif; opacity: 0.7;">Estimated Wait</span>
+                                <span style="font-family: 'Inter', sans-serif; font-weight: 600;">1 hr 45 min</span>
+                            </div>
+                            <div class="detail-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 12px;">
+                                <span style="font-family: 'Inter', sans-serif; opacity: 0.7;">Transport</span>
+                                <span id="summary-transport-method" style="font-family: 'Inter', sans-serif; font-weight: 600;">-</span>
+                            </div>
+                            <div class="detail-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 12px;">
+                                <span style="font-family: 'Inter', sans-serif; opacity: 0.7;">Destination</span>
+                                <span style="font-family: 'Inter', sans-serif; font-weight: 600;">Toronto General</span>
+                            </div>
+                        </div>
+
+                        <button id="btn-finish-flow" class="btn-primary" style="width: 100%; border-radius: 50px; background: #1A1A1A; color: #E1FF7F; font-weight: 700; padding: 16px;">
+                            Return to Home
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Active Tracking Widget (Floating at Top) -->
+            <div id="active-tracking-widget" style="display: none; position: absolute; top: 0; left: 0; width: 100%; background: #1A1A1A; border-radius: 0 0 24px 24px; padding: 24px 24px 20px 24px; z-index: 200; box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: slideDown 0.5s ease-out;">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div style="width: 48px; height: 48px; background: #E1FF7F; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #1A1A1A; font-size: 24px;">
+                            <i class='bx bx-time-five'></i>
+                        </div>
+                        <div>
+                            <div style="color: #E1FF7F; font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 16px;">
+                                En Route &bull; <span>A-<span style="font-family: 'Inter', sans-serif; font-weight: 400;">24</span></span>
+                            </div>
+                            <div style="color: #fff; opacity: 0.7; font-family: 'Inter', sans-serif; font-size: 13px;">Est. Wait 1h 45m</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span id="tracking-status-detail" style="color: #fff; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; text-align: right;">
+                            14 min away
+                        </span>
+                        <div style="color: #E1FF7F; font-size: 24px;">
+                            <i class='bx bx-chevron-right'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+    <!-- Calendar Overlay -->
+    <div id="calendar-overlay" class="modal-overlay" style="display: none; align-items: center; justify-content: center; z-index: 1000;">
+        <div class="calendar-modal" style="background: white; border-radius: 24px; padding: 24px; width: 90%; max-width: 360px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+            <div class="calendar-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <h2 id="calendar-month-year" style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 700; margin: 0; color: #1A1A1A;"></h2>
+                    <div class="calendar-nav" style="display: flex; gap: 4px;">
+                        <button id="prev-month" style="background: none; border: none; cursor: pointer; color: #1A1A1A; font-size: 20px; display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%;"><i class='bx bx-chevron-left'></i></button>
+                        <button id="next-month" style="background: none; border: none; cursor: pointer; color: #1A1A1A; font-size: 20px; display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%;"><i class='bx bx-chevron-right'></i></button>
+                    </div>
+                </div>
+                <button id="calendar-close" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #1A1A1A; padding: 0;">
+                    <i class='bx bx-x'></i>
+                </button>
+            </div>
+            
+            <div class="calendar-weekdays" style="display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 16px; text-align: center;">
+                <div style="font-size: 12px; font-weight: 600; color: #888; font-family: 'Inter', sans-serif;">S</div>
+                <div style="font-size: 12px; font-weight: 600; color: #888; font-family: 'Inter', sans-serif;">M</div>
+                <div style="font-size: 12px; font-weight: 600; color: #888; font-family: 'Inter', sans-serif;">T</div>
+                <div style="font-size: 12px; font-weight: 600; color: #888; font-family: 'Inter', sans-serif;">W</div>
+                <div style="font-size: 12px; font-weight: 600; color: #888; font-family: 'Inter', sans-serif;">T</div>
+                <div style="font-size: 12px; font-weight: 600; color: #888; font-family: 'Inter', sans-serif;">F</div>
+                <div style="font-size: 12px; font-weight: 600; color: #888; font-family: 'Inter', sans-serif;">S</div>
+            </div>
+            
+            <div id="calendar-grid" class="calendar-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 12px; text-align: center;">
+                <!-- Dates generated by JS -->
+            </div>
+
+            <div style="margin-top: 24px; border-top: 1px solid #f0f0f0; padding-top: 16px; display: flex; align-items: center; justify-content: center; gap: 24px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 8px; height: 8px; border-radius: 50%; background: #1A1A1A; border: 1px solid #1A1A1A;"></div>
+                    <span style="font-size: 12px; color: #555; font-family: 'Inter', sans-serif;">Visit</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                     <div style="width: 24px; height: 24px; border-radius: 50%; background: #E1FF7F; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">31</div>
+                    <span style="font-size: 12px; color: #555; font-family: 'Inter', sans-serif;">Today</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Story/Recap Overlay -->
+    <div id="recap-overlay" class="modal-overlay" style="display: none; z-index: 2000; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); flex-direction: column; justify-content: center; align-items: center; position: fixed; inset: 0;">
+        
+        <!-- Tap Area for Navigation (Outside card area, although we want user to tap anywhere usually. 
+             If we put tap area full screen behind card, card blocks it. 
+             Ideally the card itself should be tappable too, but content shouldn't block it. 
+             We'll attach click listener to 'story-tap-area' which covers full screen, 
+             but we need to ensure card doesn't block clicks unless interactive elements. 
+             Actually simplified: just make the whole overlay tappable in JS? 
+             The current JS attaches to 'recapTapArea'. We'll make that absolute covering everything z-index 1.
+             Card will be z-index 10. We need card to be clickable for "next slide" too? 
+             Yes, typically stories are tap anywhere. 
+             So we will put the tap area ON TOP of card content but below buttons. 
+        -->
+        <div id="story-tap-area" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5;"></div>
+
+        <!-- 9:16 Card Container -->
+        <div class="story-card" style="
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 400px;
+            aspect-ratio: 9/16;
+            max-height: 85vh;
+            background-color: #E1FF7F;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            pointer-events: none; /* Let clicks pass through to tap area, enabling buttons via pointer-events:auto */
+        ">
+            <!-- Progress Bars -->
+            <div class="story-progress-container" style="display: flex; gap: 6px; padding: 20px 24px; width: 100%; margin-top: 10px;">
+                <div class="story-bar-bg" style="flex: 1; height: 4px; background: rgba(20,50,40,0.2); border-radius: 2px; overflow: hidden;">
+                    <div class="story-bar-fill" id="story-bar-0" style="width: 0%; height: 100%; background: #143228; transition: width 0.1s linear;"></div>
+                </div>
+                <div class="story-bar-bg" style="flex: 1; height: 4px; background: rgba(20,50,40,0.2); border-radius: 2px; overflow: hidden;">
+                    <div class="story-bar-fill" id="story-bar-1" style="width: 0%; height: 100%; background: #143228; transition: width 0.1s linear;"></div>
+                </div>
+                <div class="story-bar-bg" style="flex: 1; height: 4px; background: rgba(20,50,40,0.2); border-radius: 2px; overflow: hidden;">
+                    <div class="story-bar-fill" id="story-bar-2" style="width: 0%; height: 100%; background: #143228; transition: width 0.1s linear;"></div>
+                </div>
+            </div>
+
+            <!-- Header / Close -->
+            <div style="padding: 0 24px; display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px; pointer-events: auto;">
+                <div style="color: #1A1A1A; font-family: 'Inter', sans-serif; font-size: 14px; opacity: 0.7; font-weight: 600;">Assessment Recap</div>
+                <button id="recap-close" style="background: none; border: none; font-size: 28px; color: #1A1A1A; cursor: pointer;">
+                    <ion-icon name="close"></ion-icon>
+                </button>
+            </div>
+
+            <!-- Content Area -->
+            <div id="story-content" style="flex: 1; width: 100%; padding: 24px; display: flex; flex-direction: column; justify-content: center; color: #1A1A1A; pointer-events: auto;">
+                <!-- Injected via JS -->
+            </div>
+
+            <!-- Navigation Footer -->
+            <div style="display: flex; gap: 12px; padding: 0 24px 24px 24px; pointer-events: auto; background: transparent;">
+                <!-- Left Button: Back -->
+                <button id="story-prev" style="
+                    flex: 1; 
+                    height: 48px; 
+                    background: transparent; 
+                    border: 1px solid #1A1A1A; 
+                    border-radius: 100px; 
+                    display: flex; align-items: center; justify-content: center; 
+                    cursor: pointer;
+                    color: #1A1A1A;
+                    font-size: 24px;
+                    transition: all 0.2s ease;
+                ">
+                    <i class='bx bx-left-arrow-alt'></i>
+                </button>
+
+                <!-- Right Button: Next -->
+                <button id="story-next" style="
+                    flex: 1; 
+                    height: 48px; 
+                    background: #1A1A1A; 
+                    border: none; 
+                    border-radius: 100px; 
+                    display: flex; align-items: center; justify-content: center; 
+                    cursor: pointer;
+                    color: #E1FF7F;
+                    font-size: 24px;
+                    transition: all 0.2s ease;
+                ">
+                    <i class='bx bx-right-arrow-alt'></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

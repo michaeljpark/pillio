@@ -1,0 +1,154 @@
+[
+  {
+    "id": 1,
+    "hospital": "Toronto General Hospital",
+    "date": "February 2, 2026",
+    "time": "2:30 PM",
+    "locationDetail": "Direct to Cardiology, 4th Floor",
+    "department": "Cardiology Department",
+    "departmentIcon": "bx-pulse",
+    "mainIcon": "bx-plus-medical",
+    "status": "Scheduled Visit",
+    "statusIcon": "bx-calendar",
+    "statusClass": "status-future",
+    "timestamp": "2026-02-02T14:30:00",
+    "prescription": {
+        "doctorName": "Dr. Emily Wong",
+        "doctorNote": "Follow-up consultation for arrhythmia management. Patient to bring home blood pressure logs. EKG scheduled prior to visit.",
+        "medications": [
+            { "name": "Bisoprolol", "dosage": "5mg", "quantity": "Refill if needed" }
+        ],
+        "instructions": "Do not consume caffeine 4 hours prior to the appointment. Wear loose clothing for EKG."
+    }
+  },
+  {
+    "id": 2,
+    "hospital": "St. Michael's Hospital",
+    "date": "January 20, 2026",
+    "time": "11:15 AM",
+    "locationDetail": "Room B 304",
+    "department": "Radiology",
+    "departmentIcon": "bx-aperture",
+    "mainIcon": "bx-radio-circle-marked",
+    "status": "Assessment Ready",
+    "statusIcon": "bx-check-circle",
+    "statusClass": "status-ready",
+    "timestamp": "2026-01-20T11:15:00",
+    "prescription": {
+        "doctorName": "Dr. James Peterson",
+        "doctorNote": "MRI of the Lumbar Spine completed. Results indicate mild disc herniation at L4-L5 level with slight nerve root impingement. No spinal stenosis observed.",
+        "medications": [
+            { "name": "Naproxen", "dosage": "500mg", "quantity": "14 Tablets" },
+            { "name": "Cyclobenzaprine", "dosage": "10mg", "quantity": "10 Tablets" }
+        ],
+        "instructions": "Engage in gentle physiotherapy. Avoid heavy lifting (>10lbs). Follow up with Orthopedics in 2 weeks."
+    }
+  },
+  {
+    "id": 3,
+    "hospital": "Mount Sinai Hospital",
+    "date": "January 12, 2026",
+    "time": "9:00 AM",
+    "locationDetail": "Emergency Wing, Triage",
+    "department": "Emergency Room",
+    "departmentIcon": "bx-plus-medical",
+    "mainIcon": "bx-shield-plus",
+    "status": "Assessment Ready",
+    "statusIcon": "bx-check-circle",
+    "statusClass": "status-ready",
+    "timestamp": "2026-01-12T09:00:00",
+    "prescription": {
+        "doctorName": "Dr. Sarah Chen",
+        "doctorNote": "Patient presents with sudden onset of high fever (<span class='number-font'>39\u00B0C</span>), severe myalgia, and fatigue. Rapid antigen test confirmed Influenza A. Respiratory status stable with clear lungs.",
+        "medications": [
+            { "name": "Oseltamivir (Tamiflu)", "dosage": "75mg", "quantity": "10 Capsules" },
+            { "name": "Acetaminophen", "dosage": "500mg", "quantity": "20 Tablets" },
+            { "name": "Dextromethorphan", "dosage": "15mg", "quantity": "1 Bottle" }
+        ],
+        "instructions": "Strict isolation for 5 days. Maintain high fluid intake and rest. Monitor temperature every 6 hours. Seek immediate care if shortness of breath or confusion occurs."
+    }
+  },
+  {
+    "id": 4,
+    "hospital": "Sunnybrook Health Sciences",
+    "date": "January 5, 2026",
+    "time": "4:00 PM",
+    "department": "Orthopedics",
+    "departmentIcon": "bx-bone",
+    "mainIcon": "bx-health",
+    "status": "Report Pending",
+    "statusIcon": "bx-file",
+    "statusClass": "status-pending",
+    "timestamp": "2026-01-05T16:00:00",
+     "prescription": {
+        "doctorName": "Dr. Robert Miller",
+        "doctorNote": "Initial consultation for right knee pain. Suspected meniscus tear. MRI ordered to confirm diagnosis. Physical examination shows limited range of motion.",
+        "medications": [
+             { "name": "Topical Diclofenac", "dosage": "1%", "quantity": "1 Tube" }
+        ],
+        "instructions": "Apply ice to the affected area for 20 minutes, 3 times a day. Use crutches if weight-bearing is painful."
+    }
+  },
+  {
+    "id": 5,
+    "hospital": "Women's College Hospital",
+    "date": "December 14, 2025",
+    "time": "3:45 PM",
+    "department": "Family Practice",
+    "departmentIcon": "bx-clinic",
+    "mainIcon": "bx-user",
+    "status": "Archived Visit",
+    "statusIcon": "bx-history",
+    "statusClass": "status-archived",
+    "timestamp": "2025-12-14T15:45:00",
+     "prescription": {
+        "doctorName": "Dr. Lisa Ray",
+        "doctorNote": "Annual physical examination. All vitals within normal range. Blood work ordered for cholesterol and glucose screening. Vaccinations updated.",
+        "medications": [],
+        "instructions": "Maintain regular exercise routine and balanced diet. Schedule follow-up if blood work results appear abnormal."
+    }
+  },
+  {
+    "id": 6,
+    "hospital": "North York General",
+    "date": "November 28, 2025",
+    "time": "10:30 AM",
+    "department": "Dermatology",
+    "departmentIcon": "bx-body",
+    "mainIcon": "bx-layer",
+    "status": "Archived Visit",
+    "statusIcon": "bx-history",
+    "statusClass": "status-archived",
+    "timestamp": "2025-11-28T10:30:00",
+     "prescription": {
+        "doctorName": "Dr. Kevin Park",
+        "doctorNote": "Evaluation of eczema flair-up on forearms. Prescribed corticosteroid cream. Discussed potential allergic triggers.",
+        "medications": [
+            { "name": "Hydrocortisone Cream", "dosage": "2.5%", "quantity": "30g Tube" },
+             { "name": "Cetirizine", "dosage": "10mg", "quantity": "30 Tablets" }
+        ],
+        "instructions": "Apply cream thinly twice daily for 1 week. Use fragrance-free moisturizers."
+    }
+  },
+  {
+    "id": 7,
+    "hospital": "SickKids",
+    "date": "October 15, 2025",
+    "time": "1:00 PM",
+    "department": "Pediatrics",
+    "departmentIcon": "bx-face",
+    "mainIcon": "bx-happy",
+    "status": "Archived Visit",
+    "statusIcon": "bx-history",
+    "statusClass": "status-archived",
+    "timestamp": "2025-10-15T13:00:00",
+     "prescription": {
+        "doctorName": "Dr. Amanda Blue",
+        "doctorNote": "Consultation regarding seasonal allergies. Patient reports sneezing and itchy eyes. Recommended over-the-counter antihistamines.",
+        "medications": [
+             { "name": "Loratadine (Claritin)", "dosage": "5mg", "quantity": "Over-the-counter" }
+        ],
+        "instructions": "Avoid outdoor activities during high pollen count days. Keep windows closed."
+    }
+  }
+]

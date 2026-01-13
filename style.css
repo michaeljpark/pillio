@@ -1,0 +1,1856 @@
+:root {
+    --bg-app: #F5F5F5; /* More visible off-white */
+    --bg-card: #FFFFFF;
+    --text-primary: #1A1A1A;
+    --text-secondary: #666666;
+    --text-tertiary: #888888;
+    --brand-green-dark: #1E4D3B;
+    --brand-green-light: #2E7D5C;
+    --accent-lime: #D9F27E;
+    --accent-lime-hover: #c5e065;
+    --divider: #ECECEC;
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, button, input, select, textarea {
+    font-family: 'Raleway', sans-serif;
+}
+
+body {
+    background-color: var(--bg-app); /* Match app background color */
+    display: flex;
+    justify-content: center;
+    height: 100vh; /* Fixed height for sticky footer effect */
+    overflow: hidden; /* Prevent double scrollbars */
+    transition: background-color 0.5s ease; /* Smooth background transition */
+}
+
+.mobile-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+/* Simulate Mobile Device */
+.app-container {
+    width: 100%;
+    max-width: 420px; /* Max width for mobile view */
+    background-color: var(--bg-app);
+    height: 100%; /* Fill wrapper */
+    box-shadow: 0 0 20px rgba(0,0,0,0); /* Shadow hidden (transparency 0) */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 0; /* padding handled by scroll content */
+    padding-top: 0; /* Moved blank space to scroll content so it scrolls */
+    overflow: hidden; /* Parent doesn't scroll */
+    transition: box-shadow 0.5s ease, background-color 0.5s ease; /* Smooth transitions */
+}
+
+.scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 40px; /* Blank space that scrolls with the page */
+    padding-bottom: 20px; /* Space above nav */
+    
+    /* Hide scrollbar for cleaner look */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.scroll-content::-webkit-scrollbar {
+    display: none;
+}
+
+/* Header */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    background-color: var(--bg-app);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.avatar img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    object-fit: cover;
+}
+
+.greeting h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.notification-btn {
+    background: transparent;
+    border: none;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-primary);
+    font-size: 24px;
+    box-shadow: none;
+    padding: 8px; /* Add some padding for touch target */
+}
+
+/* Hero Card */
+.hero-card {
+    aspect-ratio: 4 / 3; /* 4:3 Aspect Ratio */
+    margin: 0 var(--spacing-lg) var(--spacing-lg);
+    background: linear-gradient(135deg, var(--brand-green-light) 0%, var(--brand-green-dark) 100%);
+    border-radius: 20px;
+    padding: 24px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute content */
+    gap: 20px;
+    box-shadow: 0 10px 20px rgba(30, 77, 59, 0.15);
+    border: 1px solid rgba(0,0,0,0.1); /* Darker border */
+}
+
+.wave-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+    background-size: cover;
+    background-position: bottom;
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.hero-top {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-bottom {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Spacing between text and button */
+}
+
+.badge {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--accent-lime);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.hero-card h2 {
+    font-size: 24px;
+    margin-bottom: 0;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+#hero-desc {
+    font-size: 14px;
+    opacity: 0.9;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 0;
+    font-family: 'Inter', sans-serif; /* Default for numbers/dates */
+}
+
+.btn-primary {
+    background-color: var(--accent-lime);
+    color: var(--brand-green-dark);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    align-self: flex-start;
+    width: 100%; /* Make button full width if desired, or keep auto. 
+                   Usually in these cards full width looks good or auto. 
+                   User's original image had it bottom left. I'll keep auto/flex-start but maybe wider? */
+    text-align: center;
+}
+    z-index: 1;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-lime-hover);
+}
+
+/* Action Bar */
+.action-bar {
+    margin: 0 var(--spacing-lg) var(--spacing-lg);
+    background-color: #E1FF7F; /* Updated color */
+    border: 1px solid rgba(0,0,0,0.05); /* Slightly darker stroke */
+    border-radius: 16px; /* Increased radius */
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 48px);
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: background-color 0.2s, transform 0.1s; /* Added transform transition */
+    font-weight: 600;
+}
+
+.action-bar:hover {
+    background-color: #D4F070; /* Slightly darker lime on hover instead of white/grey */
+}
+
+.action-bar:active {
+    background-color: white !important; /* Forces white on click/tap */
+    transform: scale(0.98); /* Click feedback */
+    border-color: var(--accent-lime); /* Optional: show border highlight */
+}
+
+.action-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.action-left ion-icon {
+    font-size: 24px;
+}
+
+/* Timeline */
+.timeline {
+    padding: 0 var(--spacing-lg);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    margin-top: 8px;
+}
+
+.section-title {
+    font-size: 14px; /* Increased slightly for "Recent Visits" */
+    font-weight: 700;
+    color: var(--text-secondary);
+    /* removed text-transform uppercase to match 'Recent Visits' style if needed, 
+       but user didn't specify case, just text. usually section titles are nicer if consistent. 
+       I'll keep specific styling here or override */
+    text-transform: none; 
+    letter-spacing: 0;
+    margin: 0;
+    font-family: 'Raleway', sans-serif; /* Back to Raleway for main headers? User asked for Raleway generally */
+    color: #1A1A1A;
+}
+
+.see-more-link {
+    font-size: 13px;
+    color: var(--brand-green-light);
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.month-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: var(--spacing-md);
+    margin-top: 24px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Search Bar */
+.search-container {
+    padding: 0 var(--spacing-lg) var(--spacing-md);
+}
+
+.search-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.search-input-wrapper i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 20px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 12px;
+    background-color: #F4F4F4;
+    font-size: 14px;
+    outline: none;
+    font-family: 'Raleway', sans-serif;
+}
+
+.search-input:focus {
+    border-color: var(--brand-green-light);
+    background-color: white;
+}
+
+.card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Card Component */
+.card {
+    background: #EDEDED; /* Slightly darker grey background */
+    border-radius: 16px;
+    /* box-shadow: 0 2px 8px rgba(0,0,0,0.05); */
+    overflow: hidden;
+    margin-bottom: 8px;
+    border: 1px solid rgba(0,0,0,0.05); /* Slightly darker stroke */
+}
+
+.card-header {
+    padding: 20px 20px 16px; /* Increased padding */
+    display: flex;
+    gap: 16px;
+}
+
+.icon-box {
+    width: 48px;
+    height: 48px;
+    background-color: #1A1A1A;
+    border-radius: 12px; /* Softer radius */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.icon-box.dark {
+    background-color: #1A1A1A;
+    color: #D9F27E; /* Light lime accent for icons */
+}
+
+.icon-box i {
+    font-size: 24px;
+}
+
+.card-title-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+}
+
+.card-title-group h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.card-meta {
+    font-size: 13px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Inter', sans-serif; /* Numbers and Dates in Inter */
+}
+
+.separator {
+    color: #999;
+}
+
+.card-category {
+    font-size: 13px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.card-category i {
+    font-size: 14px;
+}
+
+.card-divider {
+    height: 1px;
+    background-color: #E5E5E5; /* Visible divider on grey bg */
+    margin: 0 20px; /* Indented divider */
+}
+
+.card-footer {
+    padding: 16px 20px 20px; /* Increased padding */
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: none; /* using divider div instead */
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-ready {
+    color: #00A651; /* Explicit green */
+}
+
+.status-pending {
+    color: #666666; /* Grey */
+}
+
+.status-archived, .status-future {
+    color: var(--brand-green-light);
+}
+
+.btn-secondary {
+    background-color: #D9F27E; /* Lime color */
+    color: #1A1A1A;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-secondary:hover {
+    opacity: 0.8;
+}
+
+@media (min-width: 480px) {
+    /* When screen is larger than mobile, show spacers */
+    body {
+        background-color: var(--bg-app); /* Match app background color */
+    }
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+    /* No sticky needed, just flex item */
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center items vertically */
+    padding: 12px 32px 24px; /* Increased to make it taller */
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+    border-top: 1px solid #f5f5f5;
+    flex-shrink: 0; /* Keep size */
+    z-index: 100;
+    height: 84px; /* Increased from 60px */
+}
+
+.nav-item {
+    display: flex;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically if needed */
+    cursor: pointer;
+    flex: 1;
+    -webkit-tap-highlight-color: transparent; /* Remove interaction highlight */
+}
+
+/* Pill Wrapper */
+.nav-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 24px; /* Increased padding for nice pill shape */
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+.nav-item ion-icon {
+    font-size: 24px;
+    color: #999;
+    --ionicon-stroke-width: 32px;
+}
+
+.nav-item span {
+    font-size: 10px;
+    font-weight: 600; /* Bold weight for visibility */
+    color: #999;
+}
+
+/* Active State Styles */
+.nav-item.active .nav-pill {
+    background-color: rgba(225, 255, 127, 0.45); /* Lighter/Transparent Lime Indicator */
+}
+
+.nav-item.active ion-icon {
+    color: #1A1A1A; /* Active Icon */
+}
+
+.nav-item.active span {
+    color: #1A1A1A; /* Active Text */
+}
+
+.nav-item:first-child ion-icon {
+    /* color: var(--brand-green-dark); */
+}
+
+.nav-fab-container {
+    position: relative;
+    top: -36px; /* Adjusted upward float for bigger button */
+    display: flex;
+    justify-content: center;
+    flex: 0;
+    min-width: 80px; /* Increased container width */
+    z-index: 104; /* Higher than widget */
+}
+
+.nav-fab {
+    width: 80px; /* Increased from 64px */
+    height: 80px; /* Increased from 64px */
+    background-color: #E1FF7F; /* Updated to user's requested hex */
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px; /* Increased icon size from 32px */
+    color: #1A1A1A; /* Dark icon color */
+    cursor: pointer;
+    /* No shadow and white edge as requested */
+    transition: transform 0.2s;
+    z-index: 102; /* Ensure above nav */
+}
+
+/* Fullscreen Overlay */
+#fab-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #E1FF7F;
+    z-index: 200; /* Above everything */
+    /* Start circle at the visual center of the FAB: 
+       Horizontal: 50%
+       Vertical: Bottom -> Nav Height (84) + FAB Top Offset (-36) + Half FAB (40) is kinda complex relative to flow. 
+       Let's approximate: 100% height - 80px roughly. 
+    */
+    clip-path: circle(0px at 50% calc(100% - 80px));
+    transition: clip-path 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    pointer-events: none; /* Let clicks pass through when closed */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#fab-overlay.active {
+    clip-path: circle(150% at 50% calc(100% - 80px));
+    pointer-events: all;
+}
+
+#overlay-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: none;
+    border: none;
+    font-size: 32px;
+    color: #1A1A1A;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+#overlay-close:hover {
+    background-color: rgba(0,0,0,0.05);
+    transform: rotate(90deg);
+}
+
+/* Immediate Help Overlay */
+#help-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #E1FF7F; /* Same lime green as button/fab-overlay */
+    z-index: 300; /* Higher than FAB overlay */
+    
+    /* Variables will be set by JS based on click position */
+    --help-origin-x: 50%;
+    --help-origin-y: 50%;
+    
+    clip-path: circle(0px at var(--help-origin-x) var(--help-origin-y));
+    transition: clip-path 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+#help-overlay.active {
+    clip-path: circle(150% at var(--help-origin-x) var(--help-origin-y));
+    pointer-events: all;
+}
+
+#help-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: none;
+    border: none;
+    font-size: 32px;
+    color: #1A1A1A;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+    z-index: 500; /* Ensure it is above the content */
+}
+
+#help-close:hover {
+    background-color: rgba(0,0,0,0.05);
+    transform: rotate(90deg);
+}
+
+/* Chat UI Styles */
+.overlay-content.chat-mode {
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    text-align: left;
+    background-color: transparent; 
+}
+
+/* Ensure animation works for help overlay content too */
+#help-overlay.active .overlay-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.chat-header {
+    padding: 16px 20px 12px; /* Reduced vertical padding */
+    background: transparent; /* Transparent */
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px; /* Reduced Space for close button */
+}
+
+.chat-avatar {
+    width: 32px; /* Smaller avatar */
+    height: 32px;
+    background: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1E4D3B;
+    font-size: 20px;
+}
+
+.chat-title h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 0;
+    font-family: 'Raleway', sans-serif;
+}
+
+/* Old status dot removed */
+
+.chat-messages {
+    flex: none; /* Use fixed height, disable flex grow/shrink */
+    height: 45vh; /* Fixed at 45% to match "reduced" state and show all bottom elements */
+    padding: 20px; /* Reset padding */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: transparent;
+    /* Hide Scrollbar */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.chat-messages::-webkit-scrollbar {
+    display: none;
+}
+
+/* Spacer to push input up if needed, but height constraint does it */
+
+/* Message Container handles positioning and animation */
+.message-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 85%;
+    animation: messageSlide 0.3s ease-out;
+}
+
+.message-container.doctor {
+    align-self: flex-start;
+}
+
+.message-container.user {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+/* Meta Data (Icon + Name) */
+.message-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    padding-left: 4px; /* Align slightly */
+}
+
+.avatar-small {
+    width: 24px;
+    height: 24px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #1E4D3B;
+}
+
+.sender-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1A1A1A;
+    font-family: 'Raleway', sans-serif;
+}
+
+/* Message Bubbles */
+.message-bubble {
+    font-size: 15px;
+    line-height: 1.5;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.message-bubble.doctor {
+    background: transparent;
+    border: none; /* No Stroke */
+    color: #1A1A1A;
+    padding: 0 4px; /* Slight padding alignment */
+}
+
+.message-bubble.user {
+    padding: 10px 16px;
+    background: transparent; /* Fill with background color (transparent to show overlay) */
+    color: #1A1A1A; /* Text Black */
+    border: 1px solid #1A1A1A; /* Stroke 1px */
+    border-radius: 50px; /* Rounded edge max */
+    font-weight: 500;
+}
+
+@keyframes messageSlide {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Removed old .message classes to avoid conflict */
+
+
+/* Chat Suggestions */
+.chat-suggestions {
+    padding: 8px 16px;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: flex-end; /* Align right (User side) */
+    flex-direction: column; /* Stack them vertically for better visibility */
+    align-items: flex-end; /* Align to right */
+    gap: 8px;
+    height: auto; /* Allow growth */
+    min-height: 100px; /* Minimum space */
+    overflow-y: visible; /* No scrollbar */
+    flex-shrink: 0; 
+    transition: none; 
+}
+
+.suggestion-chip {
+    background: transparent; /* Match User Bubble */
+    border: 1px solid #1A1A1A; /* Match User Bubble */
+    color: #1A1A1A; /* Match User Bubble */
+    padding: 10px 16px;
+    border-radius: 50px; /* Match User Bubble */
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Raleway', sans-serif; /* Enforce Raleway */
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: none; /* Removed shadow for cleaner wireframe look */
+    white-space: nowrap;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.suggestion-chip:hover {
+    background: rgba(0,0,0,0.05); /* Slight tint on hover */
+    transform: translateY(-2px);
+}
+
+.suggestion-chip:active {
+    transform: scale(0.95);
+}
+
+/* Chat Input Area - Lifted Up & Compact */
+.chat-input-area {
+    padding: 8px 12px;
+    background: transparent; /* Same as background */
+    margin: 0 16px 16px 16px;
+    border-radius: 30px;
+    box-shadow: none; /* Remove shadow */
+    border: 1px solid #1A1A1A; /* Stroke 1px */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 50px;
+}
+
+#chat-input {
+    flex: 1;
+    padding: 8px 0; /* Minimal padding */
+    border: none; /* simple cleaner look inside the floating pill */
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    background: transparent;
+}
+
+.btn-voice, .btn-send {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px; /* Increased font size slightly since background is gone */
+    transition: transform 0.2s, background-color 0.2s;
+    flex-shrink: 0;
+    
+    /* Requested Changes: Remove background circle, black icon */
+    background: transparent !important;
+    color: #1A1A1A !important;
+    box-shadow: none !important;
+}
+
+.btn-voice.listening {
+    color: #FF4D4D !important; /* Only color change for listening state */
+    animation: pulseIcon 1.5s infinite;
+}
+
+@keyframes pulseIcon {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.btn-send:hover {
+    transform: scale(1.1);
+    background: transparent !important;
+}
+
+/* Footer Action Button Wrapper to sit at bottom */
+.chat-footer-action {
+    padding: 0 16px 24px 16px;
+    width: 100%;
+    display: none; /* Initially hidden */
+}
+
+#btn-next-step-overlay {
+    width: 100%;
+    opacity: 1;
+    transition: opacity 0.3s, background-color 0.3s;
+    /* Requested Changes: Black button, Lime text, Max roundness, Raleway */
+    background-color: #1A1A1A;
+    color: #E1FF7F;
+    border: none;
+    border-radius: 50px; /* Max rounded */
+    padding: 16px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#btn-next-step-overlay:hover {
+    background-color: #000;
+    transform: translateY(-2px);
+}
+
+#btn-next-step-overlay.disabled {
+    background-color: rgba(26, 26, 26, 0.5); /* Semi-transparent black */
+    color: rgba(225, 255, 127, 0.5);
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+#chat-input:focus {
+    border-color: #1E4D3B;
+}
+
+.btn-voice, .btn-send {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-voice {
+    background: #F0F0F0;
+    color: #1A1A1A;
+}
+
+.btn-voice.listening {
+    background: #FF4D4D;
+    color: white;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.4); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 77, 77, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); }
+}
+
+.btn-send {
+    background: #1E4D3B;
+    color: white;
+}
+
+.btn-send:hover {
+    background: #15382b;
+    transform: scale(1.05);
+}
+
+.message .hashtag {
+    display: inline-block;
+    background: #E1FF7F;
+    color: #1E4D3B;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 4px;
+    margin-top: 8px;
+}
+
+.overlay-content {
+    text-align: center;
+    color: #1A1A1A;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s 0.2s, transform 0.3s 0.2s;
+}
+
+#fab-overlay.active .overlay-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Prescription Card Styles */
+.prescription-card {
+    background: transparent; /* Removed white background */
+    width: 100%;
+    height: 100%;
+    /* max-width: 340px; Removed max-width restriction */
+    border-radius: 0;
+    padding: 32px 24px;
+    box-shadow: none; /* Removed shadow */
+    text-align: left;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.rx-header {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center header */
+    gap: 8px;
+    color: var(--brand-green-dark); /* Darker for accessibility on lime */
+    font-weight: 800;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 24px; /* Reduced from 40px */
+}
+
+.rx-hospital {
+    text-align: center; /* Center Text */
+    margin-bottom: 32px; /* Reduced from 40px */
+}
+
+.rx-hospital h3 {
+    font-size: 28px; /* Slightly smaller to save space if needed, or keep 32. Let's keep 32 but tight leading. */
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 4px;
+    color: #1A1A1A;
+}
+
+.rx-hospital p {
+    font-size: 16px;
+    color: #1A1A1A; /* Darker for contrast */
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.rx-qr-code {
+    width: 180px; /* Increased from 100px */
+    height: 180px;
+    margin-top: 20px;
+    mix-blend-mode: darken;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.patient-details {
+    background-color: transparent; /* Remove grey box */
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 32px; /* Reduced from 60px */
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Reduced gap */
+    border-top: 2px solid #1A1A1A;
+    border-bottom: 2px solid #1A1A1A;
+    padding: 20px 0;
+}
+
+.patient-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Inter font for specific data/numbers/names for clarity */
+.patient-row .label {
+    font-size: 12px;
+    color: #1A1A1A; /* Dark text */
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-family: 'Raleway', sans-serif; /* Explicitly Raleway */
+}
+
+.patient-row .value {
+    font-size: 16px; /* Slightly smaller from 18px for better fit */
+    font-weight: 500; /* Regular weight */
+    color: #1A1A1A;
+    font-family: 'Raleway', sans-serif; 
+    text-transform: none; /* No caps */
+}
+
+.patient-row .value.number-font {
+    font-family: 'Inter', sans-serif; /* Inter for Numbers/Codes */
+    font-weight: 600; /* Keep numbers slightly bolder for readability */
+    text-transform: uppercase; /* Keep codes uppercase */
+    font-size: 14px; /* Slightly smaller for long codes like Serial No */
+}
+
+.barcode-container {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: auto; /* Push to bottom naturally */
+}
+
+.barcode-img {
+    height: 70px; /* Slightly bigger from 50px */
+    max-width: 100%;
+    margin-bottom: 4px;
+    mix-blend-mode: darken; /* Blends white background into transparent/lime */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.barcode-number {
+    font-family: 'Inter', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #1A1A1A;
+}
+
+.btn-details {
+    display: block;
+    margin: 16px auto 0;
+    background-color: #1A1A1A;
+    color: #E1FF7F; /* Changed to lime green */
+    border: none;
+    padding: 12px 32px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    transition: transform 0.2s, background-color 0.2s;
+    letter-spacing: 0.5px;
+}
+
+.btn-details:hover {
+    transform: scale(1.05);
+    background-color: #000;
+}
+
+.pharmacy-logos {
+    text-align: center;
+    font-size: 11px;
+    color: #666;
+    font-weight: 500;
+}
+
+.nav-fab:hover {
+    transform: scale(1.05);
+}
+
+.nav-fab ion-icon {
+    /* Ionicon specific styling if needed */
+}
+/* View Switching */
+.overlay-view {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.overlay-view.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Details Page Styles */
+.details-container {
+    padding: 20px 32px; /* 좌우 여백 추가 */
+    padding-bottom: 60px;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.details-container::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.details-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.btn-back {
+    background: transparent;
+    border: none;
+    color: #1A1A1A;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 14px; /* Slightly smaller */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 10px; /* Spacing from top */
+}
+
+.btn-back i {
+    font-size: 20px;
+}
+
+.details-container h2 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px; /* Reduced from 24px */
+    font-weight: 800;
+    color: #1A1A1A;
+    margin-bottom: 20px; /* Reduced from 30px */
+    line-height: 1.2;
+}
+
+.detail-section {
+    margin-bottom: 32px; /* Increased from 20px for better readability */
+    /* Removed border-top */
+    border-top: none;
+    padding-top: 0;
+}
+
+.detail-section label {
+    display: block;
+    font-family: 'Raleway', sans-serif;
+    font-size: 10px; /* Reduced from 11px */
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #1A1A1A;
+    margin-bottom: 20px; /* Increased from 16px */
+    text-transform: uppercase;
+    opacity: 0.8; /* Slightly softer */
+}
+
+.detail-section p {
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px; /* Reduced from 14px */
+    line-height: 1.4; /* Tighter line height */
+    color: #1A1A1A;
+    margin: 0;
+    font-weight: 600; /* Slightly bolder for readability without color contrast */
+    white-space: pre-line;
+}
+
+.meds-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Reduced from 16px */
+}
+
+.med-item {
+    background-color: transparent;
+    /* Removed border */
+    border: none;
+    padding: 2px 0; /* Further reduced padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(26, 26, 26, 0.1); /* Very subtle divider instead of box border */
+    padding-bottom: 8px; /* Reduced from 12px */
+}
+
+.med-item:last-child {
+    border-bottom: none;
+}
+
+.med-info h4 {
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px; /* Smaller med name */
+    font-weight: 700;
+    color: #1A1A1A;
+}
+
+.med-info p {
+    margin: 2px 0 0 0;
+    font-family: 'Inter', sans-serif; /* Numbers back to Inter */
+    font-size: 13px;
+    color: #1A1A1A;
+    font-weight: 600; /* Inter usually likes a bit more weight */
+    opacity: 0.8;
+}
+
+.med-icon {
+    font-size: 18px;
+    color: #1A1A1A;
+}
+
+
+/* Utility class for numbers */
+.number-font {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 600;
+}
+
+
+/* New Med Grid Layout */
+.med-item {
+    display: grid !important;
+    grid-template-columns: 1.5fr 1fr auto;
+    align-items: center;
+    gap: 12px;
+}
+
+.med-name {
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px; /* Reduced from 14px */
+    font-weight: 700;
+    color: #1A1A1A;
+    text-align: left;
+}
+
+.med-dosage {
+    margin: 0;
+    font-size: 12px; /* Reduced from 13px */
+    color: #1A1A1A;
+    font-weight: 600;
+    opacity: 0.8;
+    text-align: left; /* Left align mg */
+}
+
+/* Progress Tracker Styles - REMOVED OLD VERTICAL STYLES */
+/* See Horizontal Progress Tracker section below */
+
+
+/* Horizontal Progress Tracker */
+.tracker-container {
+    margin-bottom: 32px !important; /* Increased from 24px */
+}
+
+.progress-track {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    padding: 0 10px;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    width: 33.33%; /* Divide into 3 equal parts */
+    text-align: center;
+    padding: 0;
+}
+
+.step-icon {
+    width: 32px; /* Bigger touch target/visual */
+    height: 32px;
+    border-radius: 50%;
+    background-color: #E1FF7F; /* Match BG to hide line behind */
+    border: 2px solid rgba(26, 26, 26, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: transparent; /* Hide check if not active/completed initially */
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.step-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(26, 26, 26, 0.5);
+    line-height: 1.3;
+    padding: 0 4px;
+}
+
+/* Horizontal Connector Line */
+.step-line {
+    position: absolute;
+    top: 16px; /* Half of icon height (32/2) */
+    left: 50%; /* Start from center of current step */
+    width: 100%; /* Span to next step */
+    height: 2px;
+    background-color: rgba(26, 26, 26, 0.1);
+    z-index: 0; /* Behind icon */
+}
+
+/* Hide line for last step */
+.step:last-child .step-line {
+    display: none;
+}
+
+/* Completed State */
+.step.completed .step-icon {
+    background-color: #1A1A1A;
+    border-color: #1A1A1A;
+    color: #E1FF7F; /* Show check icon */
+}
+
+.step.completed .step-label {
+    color: #1A1A1A;
+    font-weight: 700;
+}
+
+/* Line Coloring for Completed Steps */
+/* This targets the line LEAVING the completed step */
+.step.completed .step-line {
+    background-color: #1A1A1A;
+}
+
+/* Active State (Current) */
+.step.active .step-icon {
+    border-color: #1A1A1A;
+    background-color: #E1FF7F; 
+    color: #1A1A1A;
+    box-shadow: 0 0 0 4px rgba(26, 26, 26, 0.1); /* Glow effect */
+}
+
+/* We want the line ENTERING the active step to be dark. 
+   But lines belong to the previous step. 
+   So if Step 1 is completed, its line (to Step 2) is dark.
+   If Step 2 is Active, it means line from Step 1 is dark.
+   This works with logic above. */
+
+.step.active .step-label {
+    color: #1A1A1A;
+    font-weight: 800;
+}
+
+
+/* Critical Fixes for Horizontal Tracker */
+.progress-track {
+    flex-direction: row !important; /* Force row layout */
+    gap: 0 !important;
+}
+
+.step-line {
+    bottom: auto !important; /* Reset bottom from vertical version */
+    right: auto !important;
+}
+
+
+/* Reconnect Button */
+.btn-reconnect {
+    display: block;
+    width: fit-content;
+    min-width: 180px; /* Reduced from 200px */
+    margin: 12px auto 0 auto; /* Reduced top margin from 40px to 12px */
+    background-color: #1A1A1A;
+    color: #E1FF7F;
+    border: none;
+    padding: 14px 28px; /* Reduced padding from 16px 32px */
+    border-radius: 100px; /* Pill shape */
+    font-size: 13px; /* Reduced from 14px */
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    transition: transform 0.2s;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+.btn-reconnect:hover {
+    transform: scale(1.02);
+}
+
+
+/* Tighter gap for the last section before the button */
+.detail-section:last-of-type {
+    margin-bottom: 8px;
+}
+
+
+/* Fix Close Button Z-Index */
+#overlay-close {
+    z-index: 1000; /* Ensure it stays on top of content with transforms */
+}
+
+
+/* Doctor / Hospital Info below button */
+.doctor-hospital-info {
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    font-size: 11px;
+    color: #4A4A4A; /* Dark Grey matching the Rexall text style */
+    font-weight: 500;
+    margin-top: 16px; 
+}
+
+
+/* ER List Styles - Appended */
+.er-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+    max-height: 50vh;
+    overflow-y: auto;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.er-list::-webkit-scrollbar {
+    display: none;
+}
+
+.er-card {
+    border: 1px solid #1A1A1A;
+    border-radius: 16px;
+    padding: 16px;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.er-card:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+.er-card.selected {
+    background: #1A1A1A;
+    color: #E1FF7F;
+}
+
+.er-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.er-name {
+    font-family: "Raleway", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.er-card.selected .er-name {
+    color: #E1FF7F;
+}
+
+.er-details {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+.er-wait-box {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.er-wait-num {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.er-wait-label {
+    font-family: "Raleway", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+
+/* ER List Updates (Dividers, Distance) */
+.er-card {
+    border: none !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+    margin-bottom: 0 !important;
+    padding: 20px 0 !important; /* Remove side padding if container has it, or keep it? Container has 20px padding. Let's keep 0 vertical padding?? No, vertical padding needed. */
+    background: transparent !important;
+}
+
+.er-card:last-child {
+    border-bottom: none !important;
+}
+
+.er-card.selected {
+    /* If user selected, maybe show background? Or just text color? 
+       "rounded edge ???? ??? ???" (not in rounded box).
+       Let's try bolding and icon or text color. 
+       But keeping the black background for selection is nice feedback. 
+       Let's compromise: Default is list, Selected becomes a rounded pill?
+       Or just keep it list style and change color.
+    */
+    background: #1A1A1A !important;
+    color: #E1FF7F !important;
+    border-radius: 50px !important; /* Re-add radius ONLY for selection - Max Rounded */
+    padding: 20px 24px !important; /* Increased side padding to clear the round corners */
+    border-bottom: none !important;
+    margin-bottom: 0 !important; /* Might jump a bit, but acceptable for emphasis */
+}
+
+/* Fix width jumping by compensating margin/width? 
+   Actually, if I add padding on select, it might shift content.
+   Better: Always have padding? 
+   No, let's try clean list: 0 side padding.
+   Selected: Black background, add side padding.
+*/
+
+.er-dist {
+    font-weight: 700;
+    color: #1A1A1A;
+}
+
+.er-card.selected .er-dist {
+    color: #E1FF7F;
+}
+
+.er-details .separator {
+    margin: 0 4px;
+    opacity: 0.5;
+}
+
+
+/* Transport View Styles */
+.transport-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0; /* Reduced from 24px */
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.transport-card:last-child {
+    border-bottom: none;
+}
+
+.transport-card:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+.transport-card.selected {
+    background: #1A1A1A !important;
+    border-color: #1A1A1A;
+    border-radius: 50px;
+    padding: 16px 24px; /* Reduced vertical padding (24->16) to compensate size */
+    border-bottom: none;
+}
+
+.transport-card.selected .transport-name,
+.transport-card.selected .transport-icon i,
+.transport-card.selected .price-main,
+.transport-card.selected .price-sub,
+.transport-card.selected .transport-details {
+    color: #E1FF7F !important;
+}
+
+/* Icon */
+.transport-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(26, 26, 26, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #1A1A1A;
+}
+
+.transport-card.selected .transport-icon {
+    background: rgba(225, 255, 127, 0.2);
+}
+
+/* Info */
+.transport-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.transport-name {
+    font-family: "Raleway", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #1A1A1A;
+}
+
+.transport-details {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    color: #666;
+}
+
+/* Price */
+.transport-price {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.price-main {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: #1A1A1A;
+}
+
+.price-sub {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    color: #666;
+    font-weight: 500;
+}
+
+
+/* Summary View Styles */
+#summary-view-container h2 {
+    color: #1A1A1A;
+}
+
+.summary-details .detail-row {
+     border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Specific styling for the disabled Immediate Help button */
+.disabled-fab {
+    background-color: #e0e0e0 !important;
+    color: #999 !important;
+    cursor: default !important;
+    box-shadow: none !important;
+}
+
+/* Tracking Widget Animation */
+@keyframes slideUp {
+    from { transform: translateY(100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Slide Down Animation for Top Widget */
+@keyframes slideDown {
+    from { transform: translateY(-100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Hide scrollbar for everything by default */
+::-webkit-scrollbar {
+    display: none;
+}
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Calendar Modal Styles */
+.calendar-day {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    height: 32px;
+    width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    border-radius: 50%;
+    position: relative;
+    color: #1A1A1A;
+    cursor: default;
+}
+
+.calendar-day.empty {
+    pointer-events: none;
+}
+
+.calendar-day.today {
+    background: transparent;
+    color: #1A1A1A;
+    font-weight: 700;
+    border: 1px solid #1A1A1A;
+}
+
+.calendar-day.has-visit {
+    background: #E1FF7F;
+    color: #1A1A1A;
+    font-weight: 600;
+}
+
+/* If today has a visit, prioritize the fill but keep border? 
+   User said "visit... lime background", "today... 1px stroke". 
+   If both, maybe Lime Background + Stroke? */
+.calendar-day.today.has-visit {
+    background: #E1FF7F;
+    border: 1px solid #1A1A1A;
+}
+
+/* Remove the dot indicator */
+.calendar-day.has-visit::after {
+    content: none;
+}
+
+/* Ensure Today + Visit looks good */
+.calendar-day.today.has-visit::after {
+    display: none;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent dim */
+    backdrop-filter: blur(2px);
+    display: flex; /* Flex is set inline in html but good to have here too */
+}
+
