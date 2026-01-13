@@ -1508,4 +1508,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Handle Loading Overlay
+    window.addEventListener('load', () => {
+        const overlay = document.getElementById('loading-overlay');
+        if (overlay) {
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 1000); 
+        }
+    });
+
 });
